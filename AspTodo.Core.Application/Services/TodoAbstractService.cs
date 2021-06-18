@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace AspTodo.Core.Application.Services
 {
-    public class TodoService : Service, ITodoService
+    public class TodoAbstractService : AbstractService, ITodoService
     {
         private readonly IRepository<TodoEntity> _todoRepository;
 
-        public TodoService(IHttpContextAccessor httpContextAccessor, 
+        public TodoAbstractService(IHttpContextAccessor httpContextAccessor, 
             IUnitOfWork unitOfWork, 
             IMapper mapper,
             IRepository<TodoEntity> todoRepository)
@@ -26,16 +26,16 @@ namespace AspTodo.Core.Application.Services
 
         public async Task<QueryListDto<TodoDto>> GetAllAsync()
         {
-            var todos = await _todoRepository.FindAllAsync(new TodoSpecification());
+            var todos = await _todoRepository.PagingAsync(new TodoAbstractSpecification());
 
             return Mapper.Map<QueryList<TodoEntity>, QueryListDto<TodoDto>>(todos);
         }
 
-        public async Task<TodoDto> GetByIdAsync()
+        public async Task<TodoDto> GetByIdAsync(int id)
         {
-            var todos = await _todoRepository.FindAllAsync(new TodoSpecification());
+            var todo = await _todoRepository.FindAsync(new TodoAbstractSpecification(id));
 
-            return Mapper.Map<TodoEntity, TodoDto>(todos.Items.FirstOrDefault());
+            return Mapper.Map<TodoEntity, TodoDto>(todo);
         }
     }
 }

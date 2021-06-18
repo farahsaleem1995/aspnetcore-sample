@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AspTodo.Core.Domain.Contracts;
 using AspTodo.Core.Domain.Models;
@@ -26,9 +25,16 @@ namespace AspTodo.Infra.Data.Repositories
             return await _entities.ToListAsync();
         }
 
-        public async Task<QueryList<TEntity>> FindAllAsync(Specification<TEntity> specification)
+        public async Task<IEnumerable<TEntity>> FindAllAsync(AbstractSpecification<TEntity> abstractSpecification)
         {
-            var items = _entities.ApplySpecification(specification, out var totalQuery);
+            _entities.ApplySpecification(abstractSpecification, out var totalQuery);
+
+            return await totalQuery.ToListAsync();
+        }
+
+        public async Task<QueryList<TEntity>> PagingAsync(AbstractSpecification<TEntity> abstractSpecification)
+        {
+            var items = _entities.ApplySpecification(abstractSpecification, out var totalQuery);
 
             return new QueryList<TEntity>
             {
@@ -37,20 +43,25 @@ namespace AspTodo.Infra.Data.Repositories
             };
         }
 
-        public async Task<TEntity> FindAsync(KeyId id)
+        public async Task<TEntity> FindAsync(AbstractSpecification<TEntity> abstractSpecification)
         {
-            var idKeys = id.GetKeys();
-
-            var idValues = idKeys.Select(id.Get<object>);
-
-            return await _entities.FindAsync(idValues.ToArray());
-        }
-
-        public async Task<TEntity> FindAsync(Specification<TEntity> specification)
-        {
-            var items = _entities.ApplySpecification(specification);
+            var items = _entities.ApplySpecification(abstractSpecification);
 
             return await items.FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> Exist(AbstractSpecification<TEntity> abstractSpecification)
+        {
+            var items = _entities.ApplySpecification(abstractSpecification);
+
+            return await items.AnyAsync();
+        }
+
+        public async Task<int> Count(AbstractSpecification<TEntity> abstractSpecification)
+        {
+            var items = _entities.ApplySpecification(abstractSpecification);
+
+            return await items.CountAsync();
         }
 
         public async Task CreateAsync(TEntity entity)

@@ -4,15 +4,15 @@ using System.Linq.Expressions;
 
 namespace AspTodo.Core.Domain.Contracts
 {
-    public abstract class Specification<TEntity>
+    public abstract class AbstractSpecification<TEntity>
         where TEntity: class, IEntity
     {
-        protected Specification(Expression<Func<TEntity, bool>> criteria)
+        protected AbstractSpecification(Expression<Func<TEntity, bool>> criteria)
         {
             Criteria = criteria;
         }
         
-        protected Specification()
+        protected AbstractSpecification()
         {
         }
 

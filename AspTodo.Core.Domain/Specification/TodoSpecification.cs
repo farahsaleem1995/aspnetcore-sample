@@ -3,13 +3,13 @@ using AspTodo.Core.Domain.Models;
 
 namespace AspTodo.Core.Domain.Specification
 {
-    public sealed class TodoSpecification : Specification<TodoEntity>
+    public sealed class TodoAbstractSpecification : AbstractSpecification<TodoEntity>
     {
-        public TodoSpecification()
+        public TodoAbstractSpecification()
         {
         }
         
-        public TodoSpecification(int id)
+        public TodoAbstractSpecification(int id)
             : base(entity => entity.Id == id)
         {
         }

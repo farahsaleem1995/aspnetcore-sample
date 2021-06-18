@@ -14,7 +14,7 @@ namespace AspTodo.Infra.IoC
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             
-            services.AddScoped<ITodoService, TodoService>();
+            services.AddScoped<ITodoService, TodoAbstractService>();
         }
     }
 }

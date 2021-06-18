@@ -9,11 +9,15 @@ namespace AspTodo.Core.Domain.Contracts
     {
         Task<IEnumerable<TEntity>> FindAllAsync();
         
-        Task<QueryList<TEntity>> FindAllAsync(Specification<TEntity> specification);
+        Task<IEnumerable<TEntity>> FindAllAsync(AbstractSpecification<TEntity> abstractSpecification);
         
-        Task<TEntity> FindAsync(KeyId id);
+        Task<QueryList<TEntity>> PagingAsync(AbstractSpecification<TEntity> abstractSpecification);
         
-        Task<TEntity> FindAsync(Specification<TEntity> specification);
+        Task<TEntity> FindAsync(AbstractSpecification<TEntity> abstractSpecification);
+
+        Task<bool> Exist(AbstractSpecification<TEntity> abstractSpecification);
+        
+        Task<int> Count(AbstractSpecification<TEntity> abstractSpecification);
 
         Task CreateAsync(TEntity entity);
         

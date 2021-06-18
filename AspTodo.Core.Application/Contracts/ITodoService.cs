@@ -7,6 +7,6 @@ namespace AspTodo.Core.Application.Contracts
     {
         Task<QueryListDto<TodoDto>> GetAllAsync();
         
-        Task<TodoDto> GetByIdAsync();
+        Task<TodoDto> GetByIdAsync(int id);
     }
 }
