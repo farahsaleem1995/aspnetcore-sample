@@ -6,9 +6,8 @@ namespace AspTodo.Infra.Data.Extensions
 {
     public static class EntityTypeBuilderExtensions
     {
-        public static void Entity<TEntity, TKeyId>(this EntityTypeBuilder<TEntity> builder, string table)
-            where TEntity: class, IEntity<TKeyId>
-            where TKeyId: KeyId
+        public static void Entity<TEntity>(this EntityTypeBuilder<TEntity> builder, string table)
+            where TEntity: class, IEntity
         {
             builder.Ignore(entity => entity.KeyId);
 

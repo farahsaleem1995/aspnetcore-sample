@@ -10,7 +10,7 @@ namespace AspTodo.Infra.IoC
     {
         private static void RegisterAppServices(IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             

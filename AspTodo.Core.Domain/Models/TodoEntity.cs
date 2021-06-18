@@ -3,7 +3,7 @@ using AspTodo.Core.Domain.Contracts;
 
 namespace AspTodo.Core.Domain.Models
 {
-    public class TodoEntity : IEntity<TodoKeyId>, ISoftDeleted
+    public class TodoEntity : IEntity, ISoftDeleted
     {
         public int Id
         {
@@ -11,7 +11,7 @@ namespace AspTodo.Core.Domain.Models
             set => KeyId.Set("Id", value);
         }
 
-        public TodoKeyId KeyId { get; set; }
+        public KeyId KeyId { get; set; }
         
         public DateTime CreatedAt { get; set; }
         
@@ -20,24 +20,10 @@ namespace AspTodo.Core.Domain.Models
         public bool Deleted { get; set; }
         
         public DateTime? DeletedAt { get; set; }
-        
-        public string GetModelName() => "Todo";
 
         public TodoEntity()
         {
-            KeyId = new TodoKeyId();
-        }
-    }
-
-    public class TodoKeyId : KeyId
-    {
-        public TodoKeyId()
-        {
-        }
-        
-        public TodoKeyId(int id)
-        {
-            Set("Id", id);
+            KeyId = new KeyId();
         }
     }
 }

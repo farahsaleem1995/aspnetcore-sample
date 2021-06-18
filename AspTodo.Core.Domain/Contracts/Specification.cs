@@ -4,9 +4,8 @@ using System.Linq.Expressions;
 
 namespace AspTodo.Core.Domain.Contracts
 {
-    public abstract class Specification<TEntity, TKeyId>
-        where TEntity: class, IEntity<TKeyId>
-        where TKeyId: KeyId
+    public abstract class Specification<TEntity>
+        where TEntity: class, IEntity
     {
         protected Specification(Expression<Func<TEntity, bool>> criteria)
         {

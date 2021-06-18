@@ -4,17 +4,16 @@ using AspTodo.Core.Domain.Models;
 
 namespace AspTodo.Core.Domain.Contracts
 {
-    public interface IRepository<TEntity, TKeyId>
-        where TEntity: class, IEntity<TKeyId>
-        where TKeyId: KeyId
+    public interface IRepository<TEntity>
+        where TEntity: class, IEntity
     {
         Task<IEnumerable<TEntity>> FindAllAsync();
         
-        Task<QueryList<TEntity>> FindAllAsync(Specification<TEntity, TKeyId> specification);
+        Task<QueryList<TEntity>> FindAllAsync(Specification<TEntity> specification);
         
-        Task<TEntity> FindAsync(TKeyId id);
+        Task<TEntity> FindAsync(KeyId id);
         
-        Task<TEntity> FindAsync(Specification<TEntity, TKeyId> specification);
+        Task<TEntity> FindAsync(Specification<TEntity> specification);
 
         Task CreateAsync(TEntity entity);
         

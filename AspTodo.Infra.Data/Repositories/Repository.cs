@@ -9,9 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspTodo.Infra.Data.Repositories
 {
-    public class Repository<TEntity, TKeyId> : IRepository<TEntity, TKeyId>
-        where TEntity: class, IEntity<TKeyId>
-        where TKeyId: KeyId
+    public class Repository<TEntity> : IRepository<TEntity>
+        where TEntity: class, IEntity
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<TEntity> _entities;
@@ -27,7 +26,7 @@ namespace AspTodo.Infra.Data.Repositories
             return await _entities.ToListAsync();
         }
 
-        public async Task<QueryList<TEntity>> FindAllAsync(Specification<TEntity, TKeyId> specification)
+        public async Task<QueryList<TEntity>> FindAllAsync(Specification<TEntity> specification)
         {
             var items = _entities.ApplySpecification(specification, out var totalQuery);
 
@@ -38,7 +37,7 @@ namespace AspTodo.Infra.Data.Repositories
             };
         }
 
-        public async Task<TEntity> FindAsync(TKeyId id)
+        public async Task<TEntity> FindAsync(KeyId id)
         {
             var idKeys = id.GetKeys();
 
@@ -47,7 +46,7 @@ namespace AspTodo.Infra.Data.Repositories
             return await _entities.FindAsync(idValues.ToArray());
         }
 
-        public async Task<TEntity> FindAsync(Specification<TEntity, TKeyId> specification)
+        public async Task<TEntity> FindAsync(Specification<TEntity> specification)
         {
             var items = _entities.ApplySpecification(specification);
 

@@ -3,7 +3,7 @@ using AspTodo.Core.Domain.Models;
 
 namespace AspTodo.Core.Domain.Specification
 {
-    public sealed class TodoSpecification : Specification<TodoEntity, TodoKeyId>
+    public sealed class TodoSpecification : Specification<TodoEntity>
     {
         public TodoSpecification()
         {

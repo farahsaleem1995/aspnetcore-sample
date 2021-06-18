@@ -12,12 +12,12 @@ namespace AspTodo.Core.Application.Services
 {
     public class TodoService : Service, ITodoService
     {
-        private readonly IRepository<TodoEntity, TodoKeyId> _todoRepository;
+        private readonly IRepository<TodoEntity> _todoRepository;
 
         public TodoService(IHttpContextAccessor httpContextAccessor, 
             IUnitOfWork unitOfWork, 
             IMapper mapper,
-            IRepository<TodoEntity, TodoKeyId> todoRepository)
+            IRepository<TodoEntity> todoRepository)
             : base(httpContextAccessor, unitOfWork, mapper)
         {
             _todoRepository = todoRepository;

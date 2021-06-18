@@ -15,7 +15,7 @@ namespace AspTodo.Infra.Data.Configuration
                 .HasColumnType("int")
                 .HasColumnName("Id");
             
-            builder.Entity<TodoEntity, TodoKeyId>("Todo");
+            builder.Entity("Todo");
             
             builder.SoftDeleted();
         }

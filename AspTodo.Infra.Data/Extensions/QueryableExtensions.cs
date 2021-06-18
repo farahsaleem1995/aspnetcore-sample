@@ -8,10 +8,9 @@ namespace AspTodo.Infra.Data.Extensions
 {
     public static class QueryableExtensions
     {
-        public static IQueryable<TEntity> ApplySpecification<TEntity, TKeyId>(this IQueryable<TEntity> queryable,
-            Specification<TEntity, TKeyId> specification, out IQueryable<TEntity> totalQuery)
-            where TEntity : class, IEntity<TKeyId>
-            where TKeyId : KeyId
+        public static IQueryable<TEntity> ApplySpecification<TEntity>(this IQueryable<TEntity> queryable,
+            Specification<TEntity> specification, out IQueryable<TEntity> totalQuery)
+            where TEntity : class, IEntity
         {
             var query = queryable;
 
@@ -22,10 +21,9 @@ namespace AspTodo.Infra.Data.Extensions
             return query.ApplyPaging(specification);
         }
 
-        public static IQueryable<TEntity> ApplySpecification<TEntity, TKeyId>(this IQueryable<TEntity> queryable,
-            Specification<TEntity, TKeyId> specification)
-            where TEntity : class, IEntity<TKeyId>
-            where TKeyId : KeyId
+        public static IQueryable<TEntity> ApplySpecification<TEntity>(this IQueryable<TEntity> queryable,
+            Specification<TEntity> specification)
+            where TEntity : class, IEntity
         {
             var query = queryable;
 
@@ -34,10 +32,9 @@ namespace AspTodo.Infra.Data.Extensions
             return query.ApplyPaging(specification);
         }
         
-        private static IQueryable<TEntity> ApplySpecificationWithoutPaging<TEntity, TKeyId>(this IQueryable<TEntity> queryable,
-            Specification<TEntity, TKeyId> specification)
-            where TEntity : class, IEntity<TKeyId>
-            where TKeyId : KeyId
+        private static IQueryable<TEntity> ApplySpecificationWithoutPaging<TEntity>(this IQueryable<TEntity> queryable,
+            Specification<TEntity> specification)
+            where TEntity : class, IEntity
         {
             var query = queryable;
 
@@ -111,10 +108,9 @@ namespace AspTodo.Infra.Data.Extensions
             return query;
         }
         
-        private static IQueryable<TEntity> ApplyPaging<TEntity, TKeyId>(this IQueryable<TEntity> queryable,
-            Specification<TEntity, TKeyId> specification)
-            where TEntity : class, IEntity<TKeyId>
-            where TKeyId : KeyId
+        private static IQueryable<TEntity> ApplyPaging<TEntity>(this IQueryable<TEntity> queryable,
+            Specification<TEntity> specification)
+            where TEntity : class, IEntity
         {
             var query = queryable;
 
