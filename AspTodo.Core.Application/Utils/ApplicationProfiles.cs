@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AspTodo.Core.Application.Attributes;
+using AutoMapper;
 
 namespace AspTodo.Core.Application.Utils
 {
@@ -15,7 +15,7 @@ namespace AspTodo.Core.Application.Utils
             assemblies.ForEach(assembly =>
             {
                 assembly.GetTypes()
-                    .Where(type => type.GetCustomAttributes(typeof(ApplicationProfile), true).Length > 0)
+                    .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(Profile)))
                     .ToList()
                     .ForEach(profiles.Add);
             });
